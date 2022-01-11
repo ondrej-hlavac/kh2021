@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kodohraní 2021 - IVO - dots generator</title>
+    <meta name="description" content="Playground and utils of our team.">
+    <meta name="author" content="IVO team">
+    <style>
+        .image {
+            display: block;
+            width: 700px;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="../index.html">back home</a>
+    <h1>Dots me up, dots me down.</h1>
+
+    <p>original image:</p>
+
+    <img src="../assets/images/comedian.jpeg" alt="comedian" class="image" />
+
+    <p>dots result:</p>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script>
+        let img;
+        let smallPoint, largePoint;
+
+        const imageWidth = 720;
+        const imageHeight = 720;
+
+        let rowPointsCount = 72;
+        let rowsCount = 72;
+        let actualRow = 0;
+
+        function preload() {
+            img = loadImage('../assets/images/comedian.jpeg');
+        }
+
+        function setup() {
+            createCanvas(imageWidth, imageHeight);
+            smallPoint = 20;
+            largePoint = 60;
+            image(img, 0, 0, imageWidth, imageHeight);
+            noStroke();
+            background(255);
+            img.loadPixels();
+        }
+
+        function draw() {
+            // TODO: loopuj přes řádky a dělej tečky ( 2x for loop? )
+            for (let i = 0; i < rowsCount; i++) {
+
+
+            }
+
+
+            // let pointillize = map(mouseX, 0, width, smallPoint, largePoint);
+            // let x = floor(random(img.width));
+            // let y = floor(random(img.height));
+            // let pix = img.get(x, y);
+            // fill(pix, 128);
+            // ellipse(x, y, pointillize, pointillize);
+        }
+    </script>
+</body>
+</html>

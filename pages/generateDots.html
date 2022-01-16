@@ -30,17 +30,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script>
         let img;
-        let smallPoint, largePoint;
+        let smallPoint, largePoint, pointsSet = [];
 
         const imageWidth = 720;
         const imageHeight = 720;
 
-        let rowPointsCount = 72;
         let rowsCount = 72;
-        let actualRow = 0;
+        let columnsCount = 72;
+
+        let sampleSquareWidth = imageHeight / (columnsCount - 1);
+        let sampleSquareHeight = imageHeight / (rowsCount - 1);
 
         function preload() {
-            img = loadImage('../assets/images/comedian.jpeg');
+            img = loadImage('../assets/images/comedian720.jpg');
         }
 
         function setup() {
@@ -53,13 +55,33 @@
             img.loadPixels();
         }
 
-        function draw() {
-            // TODO: loopuj přes řádky a dělej tečky ( 2x for loop? )
-            for (let i = 0; i < rowsCount; i++) {
+        
 
+
+        function draw() {
+
+            function addPoint(x, y) {
+                let pix = img.get(x, y)
+                fill(pix);
+                square(x, y, sampleSquareWidth);
+                console.log('XY', x, y);
 
             }
 
+            function addNextLine() {
+                console.log('next LINE')
+            }
+
+            // TODO: loopuj přes řádky a pak sloupce a udělej tečky
+            for (let y = 0; y <= rowsCount; y++) {
+                // FIXME: možná bude potřeba dát columnsCount + 1
+                for (let x = 0; x <= columnsCount; x++) {
+                    addPoint(x * sampleSquareWidth, y * sampleSquareHeight);
+                    if (x === columnsCount) {
+                        addNextLine();
+                    }
+                }
+            }
 
             // let pointillize = map(mouseX, 0, width, smallPoint, largePoint);
             // let x = floor(random(img.width));
@@ -67,6 +89,7 @@
             // let pix = img.get(x, y);
             // fill(pix, 128);
             // ellipse(x, y, pointillize, pointillize);
+            noLoop();
         }
     </script>
 </body>

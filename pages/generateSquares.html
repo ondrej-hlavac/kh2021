@@ -22,9 +22,11 @@
 
   <p>original image:</p>
 
-  <img src="../assets/images/lisa.jpg" alt="comedian" class="image" />
+  <img src="../assets/images/comedian.jpeg" alt="comedian" class="image" />
 
-  <p>dots result:</p>
+  <p>squares result:</p>
+
+
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
   <script>
@@ -41,47 +43,30 @@
     let sampleSquareHeight = imageHeight / (rowsCount - 1);
 
     function preload() {
-      img = loadImage('../assets/images/lisa.jpg');
+      img = loadImage('../assets/images/comedian720.jpg');
     }
 
-
-    // SETUP
     function setup() {
       createCanvas(imageWidth, imageHeight);
       smallPoint = 20;
       largePoint = 60;
       image(img, 0, 0, imageWidth, imageHeight);
-      filter(GRAY);
       noStroke();
       background(255);
       img.loadPixels();
     }
 
-    const valueDotSize = (val) => {
-      console.log('alkjhsdkfk', val < 50)
-      if (val < 50) {
-        return sampleSquareWidth;
-      }
-
-      if (50 <= val <= 190) {
-        return sampleSquareWidth / 2;
-      } else {
-        return 0;
-      }
-    }
 
 
-    // DRAWS
+
     function draw() {
 
       function addPoint(x, y) {
         let pix = img.get(x, y)
-        const grayValue = (pix[0] + pix[1] + pix[2]) / 3;
-        const dotSize = valueDotSize(grayValue);
-        console.log("🚀 ~ file: generateDots.html ~ line 80 ~ addPoint ~ dotSize", dotSize)
+        fill(pix);
+        square(x, y, sampleSquareWidth);
+        console.log('XY', x, y);
 
-        circle(x + sampleSquareWidth / 2, y + sampleSquareHeight / 2, dotSize);
-        fill('black');
       }
 
       function addNextLine() {

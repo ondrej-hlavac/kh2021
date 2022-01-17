@@ -26,6 +26,12 @@
 
   <p>dots result:</p>
 
+  <textarea id="dotsArray"></textarea>
+
+  <br />
+  <br />
+  <br />
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
   <script>
     let img;
@@ -57,19 +63,28 @@
       img.loadPixels();
     }
 
-    const valueDotSize = (val) => {
-      console.log('alkjhsdkfk', val < 50)
-      if (val < 50) {
-        return sampleSquareWidth;
+    const valueDotSizeDrawing = (val) => {
+      if (val < 70) {
+        return sampleSquareWidth / 2;
       }
 
-      if (50 <= val <= 190) {
-        return sampleSquareWidth / 2;
+      if (70 <= val <= 190) {
+        return sampleSquareWidth / 4;
       } else {
         return 0;
       }
     }
 
+    const valueDotSize = (val) => {
+      if (val < 70) {
+        return 2;
+      }
+      if (70 <= val <= 190) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
 
     // DRAWS
     function draw() {
@@ -77,15 +92,18 @@
       function addPoint(x, y) {
         let pix = img.get(x, y)
         const grayValue = (pix[0] + pix[1] + pix[2]) / 3;
-        const dotSize = valueDotSize(grayValue);
-        console.log("🚀 ~ file: generateDots.html ~ line 80 ~ addPoint ~ dotSize", dotSize)
 
-        circle(x + sampleSquareWidth / 2, y + sampleSquareHeight / 2, dotSize);
+        // for drawing
+        const dotSizeDrawing = valueDotSizeDrawing(grayValue);
+        circle(x + sampleSquareWidth / 2, y + sampleSquareHeight / 2, dotSizeDrawing);
         fill('black');
+
+        const dotSize = valueDotSize(grayValue);
+        pointsSet.push(dotSize);
       }
 
       function addNextLine() {
-        console.log('next LINE')
+        pointsSet.push('nextLine');
       }
 
       // TODO: loopuj přes řádky a pak sloupce a udělej tečky
@@ -105,6 +123,8 @@
       // let pix = img.get(x, y);
       // fill(pix, 128);
       // ellipse(x, y, pointillize, pointillize);
+
+      document.getElementById('dotsArray').value = pointsSet.toString();
       noLoop();
     }
   </script>
